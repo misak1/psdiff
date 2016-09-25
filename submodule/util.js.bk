@@ -1,0 +1,35 @@
+var zeroPad = function (n, pad) {
+  return (("0" + n).slice(-1 * pad));
+};
+/**
+ * unixtime -> date
+ */
+var timeConverter = function (UNIX_timestamp, locate) {
+  if (!locate) {
+    locate = 'en';
+  }
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  if (locate === 'ja') {
+    months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+  }
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = zeroPad(a.getDate(), 2);
+  var hour = zeroPad(a.getHours(), 2);
+  var min = zeroPad(a.getMinutes(), 2);
+  var sec = zeroPad(a.getSeconds(), 2);
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+  if (locate === 'ja') {
+    time = year + '年' + month + '月' + date + '日 ' + hour + '時' + min + '分' + sec + '秒'
+  }
+  return time;
+}
+
+var unixtime2JpDate = function (UNIX_timestamp) {
+  return timeConverter(UNIX_timestamp, 'ja')
+}
+
+
+console.log(timeConverter(1474784222));
+console.log(unixtime2JpDate(1474784222));
